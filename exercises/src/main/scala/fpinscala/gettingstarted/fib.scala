@@ -26,11 +26,17 @@ object MyModule {
         loop(i + 1, max)
       }
     }  
-    loop(1, 5)
-    //println(fibo.mkString(", "))
-    //assertEqual(1,1, "1 1:")
-    //assertEqual(1,2, "1 2:")
-    //assertEqual(1,3, "1 3:")
+    loop(1, fibo.length)
+  }
+
+  // Exercise 1: Write a function to compute the nth fibonacci number
+  def fib(n: Int): Int = {
+    def loop(a: Int, b: Int, i: Int): Int = {
+      if (n == 1) 0
+      else if (i == n) a
+      else loop(b, a + b, i + 1)
+    }
+    loop(0,1, 1)
   }
 
   // A definition of factorial, using a local, tail recursive function
@@ -51,10 +57,4 @@ object MyModule {
     acc
   }
 
-  // Exercise 1: Write a function to compute the nth fibonacci number
-
-  def fib(n: Int): Int = {
-    //def loop(a: Int, b: Int)
-    -1
-  }
 }
