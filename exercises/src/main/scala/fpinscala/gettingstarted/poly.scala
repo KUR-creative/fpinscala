@@ -2,18 +2,26 @@ object PolymorphicFunctions {
   def testIsSorted(): Unit = {
     val sortedInts = Array(1,2,3,4,5)
     val randomInts = Array(4,1,2,6,10,3,5)
+    val randomInts2 = Array(1,2,3,4,5,1)
     val sortedStrs = Array("a","bes","ccd","d")
     val randomStrs = Array("bxc","a","c","dlw")
+    val randomStrs2 = Array("a","bes","ccd","x","d")
     
     //val aa = Array(sortedInts, sortedStrs, randomInts, randomStrs) 
     //println(aa.map((arr) => arr.mkString(" ")))
     
-    assertEqual(
-      isSorted(sortedInts, (a:Int, b:Int) => a > b), true)
+    assertEqual(isSorted(sortedInts, (a:Int, b:Int) => a > b), true)
+    assertEqual(isSorted(randomInts, (a:Int, b:Int) => a > b), false)
+    assertEqual(isSorted(randomInts2,(a:Int, b:Int) => a > b), false)
+    assertEqual(isSorted(sortedStrs, (a:String, b:String) => a > b), true)
+    assertEqual(isSorted(randomStrs, (a:String, b:String) => a > b), false)
+    assertEqual(isSorted(randomStrs2,(a:String, b:String) => a > b), false)
   }
 
   def main(args: Array[String]): Unit = {
     testIsSorted()
+    //val sortedInts = Array(1,2,3,4,5)
+    //val s = sortedInts.sliding(2)
   }
 
   private def assertEqual[A,B](lhs:A, rhs:B, msg: String ="") = {
@@ -44,7 +52,14 @@ object PolymorphicFunctions {
 
   // Exercise 2: Implement a polymorphic function to check whether
   // an `Array[A]` is sorted
-  def isSorted[A](as: Array[A], gt: (A,A) => Boolean): Boolean = ???
+  def isSorted[A](as: Array[A], gt: (A,A) => Boolean): Boolean = {
+    def loop(i:Int, ret:Boolean):Boolean = {
+      if (i == as.length || ret == false) ret
+      else if (gt(as(i - 1), as(i))) loop(-1, false)
+      else loop(i + 1, true)
+    }
+    loop(1, true)
+  }
 
   // Polymorphic functions are often so constrained by their type
   // that they only have one implementation! Here's an example:
