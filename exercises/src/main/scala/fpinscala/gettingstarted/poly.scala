@@ -1,6 +1,19 @@
 object PolymorphicFunctions {
+  def testIsSorted(): Unit = {
+    val sortedInts = Array(1,2,3,4,5)
+    val randomInts = Array(4,1,2,6,10,3,5)
+    val sortedStrs = Array("a","bes","ccd","d")
+    val randomStrs = Array("bxc","a","c","dlw")
+    
+    //val aa = Array(sortedInts, sortedStrs, randomInts, randomStrs) 
+    //println(aa.map((arr) => arr.mkString(" ")))
+    
+    assertEqual(
+      isSorted(sortedInts, (a:Int, b:Int) => a > b), true)
+  }
+
   def main(args: Array[String]): Unit = {
-    println("PPaP")
+    testIsSorted()
   }
 
   private def assertEqual[A,B](lhs:A, rhs:B, msg: String ="") = {
